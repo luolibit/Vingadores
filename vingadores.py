@@ -14,13 +14,13 @@ class Vingadores:
     @classmethod
     def listar_vingadores(cls):
 
-        largura_nome_heroi = 15 # Nome do herói pode ser mais longo
-        largura_nome_real = 15  # Nome real não tende a ser muito longo
-        largura_categoria = 20   # Categoria pode ser mais curta
-        largura_poderes = 25     # Poderes podem ter descrições mais longas
-        largura_poder_principal = 25  # Poder principal também pode ser longo
-        largura_fraquezas = 25    # Fraquezas podem ser curtas ou longas
-        largura_nivel_forca = 10 # Nível de força é um valor numérico, então 20 é suficiente
+        largura_nome_heroi = 15 
+        largura_nome_real = 15  
+        largura_categoria = 20 
+        largura_poderes = 25   
+        largura_poder_principal = 25 
+        largura_fraquezas = 25   
+        largura_nivel_forca = 10 
 
         cabecalho = (
             f"{'ID'.ljust(5)} | {'Nome de Herói'.ljust(largura_nome_heroi)} | {'Nome Real'.ljust(largura_nome_real)} | "
