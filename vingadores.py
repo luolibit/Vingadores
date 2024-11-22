@@ -14,18 +14,10 @@ class Vingadores:
     @classmethod
     def listar_vingadores(cls):
 
-        largura_nome_heroi = 15 
-        largura_nome_real = 15  
-        largura_categoria = 20 
-        largura_poderes = 25   
-        largura_poder_principal = 25 
-        largura_fraquezas = 25   
-        largura_nivel_forca = 10 
-
         cabecalho = (
-            f"{'ID'.ljust(5)} | {'Nome de Herói'.ljust(largura_nome_heroi)} | {'Nome Real'.ljust(largura_nome_real)} | "
-            f"{'Categoria'.ljust(largura_categoria)} | {'Poderes'.ljust(largura_poderes)} | {'Poder Principal'.ljust(largura_poder_principal)} | "
-            f"{'Fraquezas'.ljust(largura_fraquezas)} | {'Nível de Força'.ljust(largura_nivel_forca)}"
+            f"{'ID'.ljust(5)} | {'Nome de Herói'.ljust(10)} | {'Nome Real'.ljust(10)} | "
+            f"{'Categoria'.ljust(10)} | {'Poderes'.ljust(10)} | {'Poder Principal'.ljust(10)} | "
+            f"{'Fraquezas'.ljust(10)} | {'Nível de Força'.ljust(10)}"
         )
 
         print(cabecalho)
@@ -33,28 +25,28 @@ class Vingadores:
 
         for idx, vingador in enumerate(cls.lista_de_vingadores, start=1):
             print(
-                f"{str(idx).ljust(5)} | {vingador.nome_heroi.ljust(largura_nome_heroi)} | {vingador.nome_real.ljust(largura_nome_real)} | "
-                f"{vingador.categoria.ljust(largura_categoria)} | {vingador.poderes.ljust(largura_poderes)} | "
-                f"{vingador.poder_principal.ljust(largura_poder_principal)} | {vingador.fraquezas.ljust(largura_fraquezas)} | "
-                f"{vingador.nivel_forca.ljust(largura_nivel_forca)}"
+                f"{str(idx).ljust(5)} | {vingador.nome_heroi.ljust(10)} | {vingador.nome_real.ljust(10)} | "
+                f"{vingador.categoria.ljust(10)} | {vingador.poderes.ljust(10)} | "
+                f"{vingador.poder_principal.ljust(10)} | {vingador.fraquezas.ljust(10)} | "
+                f"{vingador.nivel_forca.ljust(10)}"
             )
 
     def __str__(self):
-        largura_nome_heroi = 15
-        largura_nome_real = 15
-        largura_categoria = 20
-        largura_poderes = 25
-        largura_poder_principal = 25
-        largura_fraquezas = 25
-        largura_nivel_forca = 10
+    #     largura_nome_heroi = 1
+    #     largura_nome_real = 1
+    #     largura_categoria = 1
+    #     largura_poderes = 1
+    #     largura_poder_principal = 1
+    #     largura_fraquezas = 1
+    #     largura_nivel_forca = 1
 
         return (
-            f"{'Nome de Herói'.ljust(largura_nome_heroi)} | {'Nome Real'.ljust(largura_nome_real)} | "
-            f"{'Categoria'.ljust(largura_categoria)} | {'Poderes'.ljust(largura_poderes)} | "
-            f"{'Poder Principal'.ljust(largura_poder_principal)} | {'Fraquezas'.ljust(largura_fraquezas)} | "
-            f"{'Nível de Força'.ljust(largura_nivel_forca)}\n"
-            f"{self.nome_heroi.ljust(largura_nome_heroi)} | {self.nome_real.ljust(largura_nome_real)} | "
-            f"{self.categoria.ljust(largura_categoria)} | {self.poderes.ljust(largura_poderes)} | "
-            f"{self.poder_principal.ljust(largura_poder_principal)} | {self.fraquezas.ljust(largura_fraquezas)} | "
-            f"{self.nivel_forca.ljust(largura_nivel_forca)}"
+            f"{'Nome de Herói'.ljust(10)} | {'Nome Real'.ljust(10)} | "
+            f"{'Categoria'.ljust(10)} | {'Poderes'.ljust(10)} | "
+            f"{'Poder Principal'.ljust(10)} | {'Fraquezas'.ljust(10)} | "
+            f"{'Nível de Força'.ljust(10)}\n"
+            f"{self.nome_heroi.ljust(10)} | {self.nome_real.ljust(10)} | "
+            f"{self.categoria.ljust(10)} | {self.poderes.ljust(10)} | "
+            f"{self.poder_principal.ljust(10)} | {self.fraquezas.ljust(10)} | "
+            f"{self.nivel_forca.ljust(10)}"
         )
