@@ -1,4 +1,5 @@
 class Vingadores:
+
     lista_de_vingadores = []
 
     def __init__(self, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca):
@@ -14,39 +15,11 @@ class Vingadores:
     @classmethod
     def listar_vingadores(cls):
 
-        cabecalho = (
-            f"{'ID'.ljust(5)} | {'Nome de Herói'.ljust(10)} | {'Nome Real'.ljust(10)} | "
-            f"{'Categoria'.ljust(10)} | {'Poderes'.ljust(10)} | {'Poder Principal'.ljust(10)} | "
-            f"{'Fraquezas'.ljust(10)} | {'Nível de Força'.ljust(10)}"
-        )
+        print(f'{'Nome de Herói'.ljust(15)} | {'Nome Real'.ljust(15)} | {'Categoria'.ljust(20)} | {'Poderes'.ljust(20)} | {'Poder Principal'.ljust(10)} | {'Fraquezas'.ljust(20)} | {'Nível de Força'.ljust(20)}')
 
-        print(cabecalho)
-        print('-' * len(cabecalho))
-
-        for idx, vingador in enumerate(cls.lista_de_vingadores, start=1):
-            print(
-                f"{str(idx).ljust(5)} | {vingador.nome_heroi.ljust(10)} | {vingador.nome_real.ljust(10)} | "
-                f"{vingador.categoria.ljust(10)} | {vingador.poderes.ljust(10)} | "
-                f"{vingador.poder_principal.ljust(10)} | {vingador.fraquezas.ljust(10)} | "
-                f"{vingador.nivel_forca.ljust(10)}"
-            )
+        for  vingador in Vingadores.lista_de_vingadores:
+            print(f'{str(vingador.nome_heroi).ljust(20)} | {str(vingador.nome_real).ljust(20)} | {str(vingador.categoria).ljust(20)} | {str(vingador.poderes).ljust(20)} | {str(vingador.poder_principal).ljust(20)} | {str(vingador.fraquezas).ljust(20)} | {str(vingador.nivel_forca).ljust(20)}')
 
     def __str__(self):
-    #     largura_nome_heroi = 1
-    #     largura_nome_real = 1
-    #     largura_categoria = 1
-    #     largura_poderes = 1
-    #     largura_poder_principal = 1
-    #     largura_fraquezas = 1
-    #     largura_nivel_forca = 1
-
-        return (
-            f"{'Nome de Herói'.ljust(10)} | {'Nome Real'.ljust(10)} | "
-            f"{'Categoria'.ljust(10)} | {'Poderes'.ljust(10)} | "
-            f"{'Poder Principal'.ljust(10)} | {'Fraquezas'.ljust(10)} | "
-            f"{'Nível de Força'.ljust(10)}\n"
-            f"{self.nome_heroi.ljust(10)} | {self.nome_real.ljust(10)} | "
-            f"{self.categoria.ljust(10)} | {self.poderes.ljust(10)} | "
-            f"{self.poder_principal.ljust(10)} | {self.fraquezas.ljust(10)} | "
-            f"{self.nivel_forca.ljust(10)}"
-        )
+        return f'{'Nome de Herói'.ljust(20)} | {'Nome Real'.ljust(20)} | {'Categoria'.ljust(20)} | {'Poderes'.ljust(20)} | {'Poder Principal'.ljust(20)} | {'Fraquezas'.ljust(20)} | {'Nível de Força'.ljust(20)}\n {str(self.nome_heroi).ljust(20)} | {str(self.nome_real).ljust(20)} | {str(self.categoria).ljust(20)} | {str(self.poderes).ljust(20)} | {str(self.poder_principal).ljust(20)} | {str(self.fraquezas).ljust(20)} | {str(self.nivel_forca).ljust(20)}'
+        
