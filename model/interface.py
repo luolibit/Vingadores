@@ -1,5 +1,5 @@
 import os
-from vingadores import Vingadores
+from model.vingadores import Vingadores
 
 class Interface:
 
