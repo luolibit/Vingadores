@@ -1,5 +1,5 @@
 from vingadores import Vingadores
-from interface import Interface as I
+from model.interface import Interface as I
  
 def main():
    I.apresentar_menu_principal()
