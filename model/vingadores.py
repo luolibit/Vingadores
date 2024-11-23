@@ -14,16 +14,11 @@ class Vingadores:
 
     @classmethod
     def listar_vingadores(cls):
+        print(f"{'Índice'.ljust(6)} | {'Nome de Herói'.ljust(17)} | {'Nome Real'.ljust(20)} | {'Categoria'.ljust(12)} | {'Poderes'.ljust(25)} | {'Poder Principal'.ljust(20)} | {'Fraquezas'.ljust(20)} | {'Nível de Força'.ljust(15)}")
+        print("-" * 157)
 
-        print(f"{'Nome de Herói'.ljust(17)} | {'Nome Real'.ljust(20)} | {'Categoria'.ljust(12)} | {'Poderes'.ljust(25)} | {'Poder Principal'.ljust(20)} | {'Fraquezas'.ljust(20)} | {'Nível de Força'.ljust(15)}")
-
-
-        print("-" * 149)
-
-        for  vingador in Vingadores.lista_de_vingadores:
-            print(f'{str(vingador.nome_heroi).ljust(17)} | {str(vingador.nome_real).ljust(20)} | {str(vingador.categoria).ljust(12)} | {str(vingador.poderes).ljust(25)} | {str(vingador.poder_principal).ljust(20)} | {str(vingador.fraquezas).ljust(20)} | {str(vingador.nivel_forca).ljust(15)}')
+        for index, vingador in enumerate(cls.lista_de_vingadores, start=1):
+            print(f'{str(index).ljust(6)} | {str(vingador.nome_heroi).ljust(17)} | {str(vingador.nome_real).ljust(20)} | {str(vingador.categoria).ljust(12)} | {str(vingador.poderes).ljust(25)} | {str(vingador.poder_principal).ljust(20)} | {str(vingador.fraquezas).ljust(20)} | {str(vingador.nivel_forca).ljust(15)}')
 
     def __str__(self):
         return f"{'Nome de Herói'.ljust(17)} | {'Nome Real'.ljust(20)} | {'Categoria'.ljust(12)} | {'Poderes'.ljust(25)} | {'Poder Principal'.ljust(20)} | {'Fraquezas'.ljust(20)} | {'Nível de Força'.ljust(15)}\n {self.nome_heroi.ljust(17)} | {self.nome_real.ljust(20)} | {self.categoria.ljust(12)} | {self.poderes.ljust(25)} | {self.poder_principal.ljust(20)} | {self.fraquezas.ljust(20)} | {self.nivel_forca.ljust(15)}"
-
-        
