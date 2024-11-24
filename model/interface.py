@@ -6,9 +6,9 @@ class Interface:
     @staticmethod
     def imprimir_titulo_app():
         print(''' 
-─█▀▀█ ▀█─█▀ █▀▀ █▀▀▄ █▀▀▀ █▀▀ █▀▀█ █▀▀ 
-░█▄▄█ ─█▄█─ █▀▀ █──█ █─▀█ █▀▀ █▄▄▀ ▀▀█ 
-░█─░█ ──▀── ▀▀▀ ▀──▀ ▀▀▀▀ ▀▀▀ ▀─▀▀ ▀▀▀''')
+░█▀▀█ ▀█░█▀ █▀▀ █▀▀▄ █▀▀▀ █▀▀ █▀▀█ █▀▀ 　 ▒█▀▀█ █▀▀█ █▀▀▄ ▀▀█▀▀ █▀▀█ █▀▀█ █░░ 
+▒█▄▄█ ░█▄█░ █▀▀ █░░█ █░▀█ █▀▀ █▄▄▀ ▀▀█ 　 ▒█░░░ █░░█ █░░█ ░░█░░ █▄▄▀ █░░█ █░░ 
+▒█░▒█ ░░▀░░ ▀▀▀ ▀░░▀ ▀▀▀▀ ▀▀▀ ▀░▀▀ ▀▀▀ 　 ▒█▄▄█ ▀▀▀▀ ▀░░▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀''')
     
     @staticmethod
     def apresentar_menu_principal():
@@ -127,7 +127,7 @@ class Interface:
         nome = input('Digite o nome do herói, ou seu nome real, para emitir um mandado de prisão: ')
         vingador = Vingadores.buscar_vingador(nome_heroi = nome) or Vingadores.buscar_vingador(nome_real = nome)
         if vingador:
-            print('Mandado de prisão emitido com sucesso para {vingador.nome_heroi}!')
+            print(f'Mandado de prisão emitido com sucesso para {vingador.nome_heroi}!')
         else:
             print('Vingador não encontrado')
 

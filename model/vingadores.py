@@ -30,8 +30,13 @@ class Vingadores:
     def listar_vingadores(cls):
         os.system('cls')
         print(f"{'Nome de Herói':<20}{'Nome Real':<20}{'Categoria':<15}{'Convocado':<10}{'Tornozeleira':<15}{'Chip GPS':<10}")
-        print("-" * 80)
+        print("-" * 100)
         for vingador in cls.lista_de_vingadores:
+
+            vingador.convocado = 'Sim' if vingador.convocado else 'Não'
+            vingador.tornozeleira = 'Sim' if vingador.tornozeleira else 'Não'
+            vingador.chip = 'Sim' if vingador.chip else 'Não'
+
             print(f"{vingador.nome_heroi:<20}{vingador.nome_real:<20}{vingador.categoria:<15}"
                   f"{vingador.convocado:<10}{vingador.tornozeleira:<15}{vingador.chip:<10}")
 
@@ -61,10 +66,11 @@ class Vingadores:
         return None
     
     def convocar(self):
-        if not self.convocado:
-            self.convocado = True
+        if self.convocado:
+            print(f'{self.nome_heroi} já foi convocado')
         else:
-            print(f'{self.nome_heroi} já está convocado!')
+            self.convocado = True
+            print(f'{self.nome_heroi} foi convocado!')
     
     def aplicar_tornozeleira(self):
         if not self.convocado:
@@ -75,11 +81,12 @@ class Vingadores:
             print('A tornozeleira já está aplicada')
             return
         
-        self.tornozeleira = True
-        if self.nome_heroi.lower() == 'thor' or self.nome_heroi == 'hulk':
+        if self.nome_heroi.lower() == 'hulk' or self.nome_heroi.lower() == 'thor':
             print(f'{self.nome_heroi} resiste à tornozeleira!')
-        else:
-            print(f"{self.nome_heroi} teve a tornozeleira aplicada com sucesso!")
+            return  
+
+        self.tornozeleira = True
+        print(f"{self.nome_heroi} teve a tornozeleira aplicada com sucesso!")
 
     def aplicar_chip(self):
         if not self.tornozeleira:
