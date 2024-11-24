@@ -9,8 +9,12 @@ class Vingadores:
     def __init__(self, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca):
         if categoria not in Vingadores.categorias_permitidas:
             raise ValueError(f"Categoria inválida, as categorias permitidas são: {', '.join(Vingadores.categorias_permitidas)}")
+        
         if not (0 <= nivel_forca <= 10000):
             raise ValueError("O nível de força deve estar entre 0 e 10000.")
+        
+        if Vingadores.buscar_vingador(nome_heroi = nome_heroi):
+            raise ValueError(f'{nome_heroi} já está cadastrado')
 
 
         self.nome_heroi = nome_heroi
@@ -32,13 +36,10 @@ class Vingadores:
         print(f"{'Nome de Herói':<20}{'Nome Real':<20}{'Categoria':<15}{'Convocado':<10}{'Tornozeleira':<15}{'Chip GPS':<10}")
         print("-" * 100)
         for vingador in cls.lista_de_vingadores:
-
-            vingador.convocado = 'Sim' if vingador.convocado else 'Não'
-            vingador.tornozeleira = 'Sim' if vingador.tornozeleira else 'Não'
-            vingador.chip = 'Sim' if vingador.chip else 'Não'
-
             print(f"{vingador.nome_heroi:<20}{vingador.nome_real:<20}{vingador.categoria:<15}"
-                  f"{vingador.convocado:<10}{vingador.tornozeleira:<15}{vingador.chip:<10}")
+                  f"{'Sim' if vingador.convocado else 'Não':<10}"
+                  f"{'Sim' if vingador.tornozeleira else 'Não':<15}"
+                  f"{'Sim' if vingador.chip else 'Não':<10}")
 
     @classmethod
     def listar_detalhes_vingador(cls, nome):

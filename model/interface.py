@@ -85,7 +85,6 @@ class Interface:
         vingador = Vingadores.buscar_vingador(nome_heroi = nome) or Vingadores.buscar_vingador(nome_real = nome)
         if vingador:
             vingador.convocar()
-            print(f'{vingador.nome_heroi} foi convocado!')
         else:
             print('Vingador não encontrado')
 
