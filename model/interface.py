@@ -1,11 +1,12 @@
 import os
+from model import vingadores
 from model.vingadores import Vingadores
 
 class Interface:
 
     @staticmethod
     def imprimir_titulo_app():
-        print('''
+        print(''' 
 ─█▀▀█ ▀█─█▀ █▀▀ █▀▀▄ █▀▀▀ █▀▀ █▀▀█ █▀▀ 
 ░█▄▄█ ─█▄█─ █▀▀ █──█ █─▀█ █▀▀ █▄▄▀ ▀▀█ 
 ░█─░█ ──▀── ▀▀▀ ▀──▀ ▀▀▀▀ ▀▀▀ ▀─▀▀ ▀▀▀''')
@@ -14,12 +15,15 @@ class Interface:
     def apresentar_menu_principal():
         os.system('cls')
         Interface.imprimir_titulo_app()
-        print()
-        print('Menu Principal')
+        print('\nMenu Principal')
         print('1. Cadastrar Vingador')
         print('2. Listar Vingadores')
-        print('3. Listar detalhes de algum Vingador específico')
-        print('4. Sair')
+        print('3. Convocar Vingador')
+        print('4. Aplicar Tornozeleira')
+        print('5. Aplicar Chip GPS')
+        print('6. Listar Detalhes do Vingador')
+        print('7. Emitir Mandado de Prisão')
+        print('8. Sair')
         print()
         Interface.ler_opcao_usuario()
 
@@ -34,69 +38,90 @@ class Interface:
     @staticmethod
     def cadastrar_vingador():
         os.system('cls')
-        Interface.imprime_titulo_tela('Cadastrando novo Vingador')
-        nome_heroi = input('Nome de Heroí: ')
+        Interface.imprime_titulo_tela('Cadastrando Novo Vingador')
+        nome_heroi = input('Nome de Herói: ')
         nome_real = input('Nome Real : ')
-        categoria = input('Categoria (opcional): ')
-        poderes = input('Poderes (opcional): ')
-        poder_principal = input('Poder Principal (opcional): ')
-        fraquezas = input('Fraquezas: ')
-        nivel_forca = input('Nível de Força: ')
+        categoria = input('Categoria (Humano, Meta-Humano, Androide, Deidade, Alienígena): ')
+        poderes = input('Poderes (separados por vírgula): ').split(', ') 
+        poder_principal = input('Poder Principal: ')
+        fraquezas = input('Fraquezas: ').split(', ')
+        nivel_forca = int(input('Nível de Força (0 a 10000): '))
+        
+        try:
+            vingadores = Vingadores(nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
+            print(f'{nome_heroi} foi cadstrado!')
+        except ValueError as e:
+            print(f'{e}')
+        input('Pressione ENTER para continuar')
 
-
-        vingador = Vingadores(nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
-
-        print(f'O Vingador foi registrado: \n{vingador}')
+    def convocar_vingador():
+        os.system('cls')
+        Interface.imprime_titulo_tela()
+        nome = input('Digite o nome do herói, ou seu nome real, para convocá-lo: ')
+        vingadores = Vingadores.buscar_vingador(nome_heroi = nome) or Vingadores.buscar_vingador(nome_real = nome)
+        if vingadores:
+            vingadores.convocado = True
+            print(f'{vingadores.nome_heroi} foi convocado!')
+        else:
+            print('Vingador não encontrado')
+        input('Pressione ENTER para continuar')
 
     @staticmethod
-    def detalhes_vingador():
+    def aplicar_tornozeleira():
         os.system('cls')
-        Interface.imprime_titulo_tela('Listando detalhes do Vingador')
+        Interface.imprimir_titulo_app()
+        nome = input('Digite o nome do herói, ou seu nome real, para aplicar a tornozeleira: ')
+        vingadores = Vingadores.buscar_vingador(nome_heroi = nome) or Vingadores.buscar_vingador(nome_real = nome)
+        if vingadores:
+            vingadores.aplicar_tornozeleira()
+        else:
+            print('Vingador não encontrado')
+        input('Pressione ENTER para continuar')
 
-        Vingadores.listar_vingadores()
+    @staticmethod
+    def aplicar_chip():
+        os.system('cls')
+        Interface.imprimir_titulo_app()
+        nome = input ('Digite o nome do herói, ou seu nome real, para aplicar o chip GPS: ')
+        vingadores = Vingadores.buscar_vingador(nome_heroi = nome) or Vingadores.buscar_vingador(nome_real = nome)
+        if vingadores:
+            vingadores.aplicar_chip()
+        else:
+            print('Vingador não encontrado')
+        input('Pressione ENTER para continuar')
 
-        try:
-            indice = int(input('\nDigite o número do Vingador para ver os detalhes: '))
-            if 1 <= indice <= len(Vingadores.lista_de_vingadores):
-                vingador = Vingadores.lista_de_vingadores[indice - 1]
-                print(f"\nDetalhes do Vingador '{vingador.nome_heroi}':")
-                print(f"Nome Real: {vingador.nome_real}")
-                print(f"Categoria: {vingador.categoria}")
-                print(f"Poderes: {vingador.poderes}")
-                print(f"Poder Principal: {vingador.poder_principal}")
-                print(f"Fraquezas: {vingador.fraquezas}")
-                print(f"Nível de Força: {vingador.nivel_forca}")
-            else:
-                print("Número inválido! Tente novamente.")
-                Interface.detalhes_vingador()
-        except ValueError:
-            print("Entrada inválida! Digite um número.")
-            Interface.detalhes_vingador()
+    @staticmethod
+    def emitir_mandado():
+        os.system('cls')
+        Interface.imprimir_titulo_app()
+        nome = input('Digite o nome do herói, ou seu nome real, para emitir um mandado de prisão: ')
+        vingadores = Vingadores.buscar_vingador(nome_heroi = nome) or Vingadores.buscar_vingador(nome_real = nome)
+        if vingadores:
+            print('Mandado de prisão emitido com sucesso para {vingador.nome_heroi}!')
+        else:
+            print('Vingador não encontrado')
+        input('Pressione ENTER para continuar')
 
     @staticmethod
     def ler_opcao_usuario():
-        try:
-            opcao = int(input ('Digite sua opcâo: '))
-            if opcao == 1:
-                Interface.cadastrar_vingador()
-            elif opcao == 2:
-                Interface.imprime_titulo_tela('Listando Vingadores')
-                Vingadores.listar_vingadores()
-            elif opcao == 3:
-                Interface.detalhes_vingador()
-            elif opcao == 4:
-                print('Encerrando o programa')
-                exit()
-            else:
-                print('Digite uma opção válida!')
-        except ValueError:
-            print('Você deve digitar um número inteiro')
-
-        Interface.voltar_ao_menu_principal()
-
-    @staticmethod
-    def voltar_ao_menu_principal():
-        print()
-        input('Pressione ENTER para voltar ao menu principal')
-        os.system('cls')
+        opcao = input('Digite sua opção: ')
+        if opcao == '1':
+            Interface.cadastrar_vingador()
+        elif opcao == '2':
+            Vingadores.listar_vingadores()
+        elif opcao == '3':
+            Interface.convocar_vingador()
+        elif opcao == '4':
+            Interface.aplicar_tornozeleira()
+        elif opcao == '5':
+            Interface.aplicar_chip()
+        elif opcao == '6':
+            Interface.emitir_mandado()
+        elif opcao == '7':
+            print('Encerrando o programa')
+            exit()
+        else:
+            print('Digite uma opção válida!')
         Interface.apresentar_menu_principal()
+
+
