@@ -1,13 +1,15 @@
+import os
+
+
 class Vingadores:
 
     lista_de_vingadores = []
-    categorias_permitidas = ["Humano", "Meta-humano", "Androide", "Deidade", "Alienígena"]
+    categorias_permitidas = ["Humano", "Meta-Humano", "Androide", "Deidade", "Alienígena"]
 
     def __init__(self, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca):
         if categoria not in Vingadores.categorias_permitidas:
-            raise ValueError(f"Categoria inválida. As categorias permitidas são: {', '.join(Vingadores.categorias_permitidas)}")
-        
-        if nivel_forca < 0 or nivel_forca > 10000:
+            raise ValueError(f"Categoria inválida, as categorias permitidas são: {', '.join(Vingadores.categorias_permitidas)}")
+        if not (0 <= nivel_forca <= 10000):
             raise ValueError("O nível de força deve estar entre 0 e 10000.")
 
 
@@ -26,40 +28,55 @@ class Vingadores:
 
     @classmethod
     def listar_vingadores(cls):
-        print(f"{'Índice'.ljust(7)} | {'Nome de Herói'.ljust(17)} | {'Nome Real'.ljust(20)} | {'Categoria'.ljust(12)} | {'Convocado'.ljust(10)} | {'Tornozeleira'.ljust(15)} | {'Chip GPS'.ljust(10)}")
-        print("-" * 100)
-        for index, vingador in enumerate(cls.lista_de_vingadores, start=1):
-            print(f"{str(index).ljust(7)} | {str(vingador.nome_heroi).ljust(17)} | {str(vingador.nome_real).ljust(20)} | {str(vingador.categoria).ljust(12)} | {str(vingador.convocado).ljust(10)} | {str(vingador.tornozeleira).ljust(15)} | {str(vingador.chip_gps).ljust(10)}")
+        os.system('cls')
+        print(f"{'Nome de Herói':<20}{'Nome Real':<20}{'Categoria':<15}{'Convocado':<10}{'Tornozeleira':<15}{'Chip GPS':<10}")
+        print("-" * 80)
+        for vingador in cls.lista_de_vingadores:
+            print(f"{vingador.nome_heroi:<20}{vingador.nome_real:<20}{vingador.categoria:<15}"
+                  f"{vingador.convocado:<10}{vingador.tornozeleira:<15}{vingador.chip:<10}")
 
     @classmethod
     def listar_detalhes_vingador(cls, nome):
-        vingador = cls.buscar_vingador(nome)
+        vingador = cls.buscar_vingador(nome_heroi = nome) or cls.buscar_vingador(nome_real = nome)
         if vingador:
-            print(f"{'Nome de Herói'.ljust(17)} | {'Nome Real'.ljust(20)} | {'Categoria'.ljust(12)} | {'Poderes'.ljust(25)} | {'Poder Principal'.ljust(20)} | {'Fraquezas'.ljust(20)} | {'Nível de Força'.ljust(15)}")
-
-            print("-" * 149)
-
-            print(f'{vingador.nome_heroi.ljust(17)} | {vingador.nome_real.ljust(20)} | {vingador.categoria.ljust(12)} | {", ".join(vingador.poderes).ljust(25)} | {vingador.poder_principal.ljust(20)} | {", ".join(vingador.fraquezas).ljust(20)} | {str(vingador.nivel_forca).ljust(15)}')
+            print(f'Nome de Herói: {vingador.nome_heroi}')
+            print(f'Nome Real: {vingador.nome_real}')
+            print(f'Categoria: {vingador.categoria}')
+            print(f"Poderes: {', '.join(vingador.poderes)}")
+            print(f'Poder Principal: {vingador.poder_principal}')
+            print(f"Fraquezas: {', '.join(vingador.fraquezas)}")
+            print(f'Nível de Força: {vingador.nivel_forca}')
+            print(f"Convocado: {'Sim' if vingador.convocado else 'Não'}")
+            print(f"Tornozeleira: {'Sim' if vingador.tornozeleira else 'Não'}")
+            print(f"Chip GPS: {'Sim' if vingador.chip else 'Não'}")
         else:
-            print('Vingador não encontrado')
+            print('Vingador não encontrado.')
 
              
     @classmethod
     def buscar_vingador(cls, nome_heroi = None, nome_real = None):
         for vingador in cls.lista_de_vingadores:
-            if(nome_heroi and vingador.nome_heroi.lower() == nome_heroi.lower()) or (nome_real and vingador.nome_real.lower() == nome_real.lower()):
+            if (nome_heroi and vingador.nome_heroi.lower() == nome_heroi.lower()) or (nome_real and vingador.nome_real.lower() == nome_real.lower()):
                 return vingador
         return None
     
     def convocar(self):
-        self._convocado = True
+        if not self.convocado:
+            self.convocado = True
+        else:
+            print(f'{self.nome_heroi} já está convocado!')
     
     def aplicar_tornozeleira(self):
         if not self.convocado:
-            print(f'{self.nome_heroi} não foi convocado ainda!')
+            print('O vingador precisa ser convocado antes de aplicar a tornozeleira!')
             return
+        
+        if self.tornozeleira:
+            print('A tornozeleira já está aplicada')
+            return
+        
         self.tornozeleira = True
-        if self.nome_heroi == 'Thor' or self.nome_heroi == 'Hulk':
+        if self.nome_heroi.lower() == 'thor' or self.nome_heroi == 'hulk':
             print(f'{self.nome_heroi} resiste à tornozeleira!')
         else:
             print(f"{self.nome_heroi} teve a tornozeleira aplicada com sucesso!")
@@ -68,6 +85,11 @@ class Vingadores:
         if not self.tornozeleira:
             print('O chip GPS só pode ser aplicado após a tornozeleira!')
             return
+        
+        if self.chip:
+            print('O chip GPS já está apliacado')
+            return
+
         self.chip = True
         print(f'{self.nome_heroi} teve o chip GPS aplicado com sucesso!')
         
