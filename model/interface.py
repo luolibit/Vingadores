@@ -74,6 +74,20 @@ class Interface:
             nivel_forca = int(input('Nível de Força (0 a 10000): '))
         
             Vingadores(nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
+
+            try:
+                db = Database()
+                db.connect()
+
+                query = "INSERT INTO heroi (nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                values = (nome_heroi, nome_real, categoria, ','.join(poderes), poder_principal, ','.join(fraquezas), nivel_forca)
+
+                db.execute_query(query, values)
+            except Exception as e:
+                print(f"Erro ao salvar vingador no banco de dados: {e}")
+            finally:
+                db.disconnect()
+
             print(f'{nome_heroi} foi cadstrado!')
         except ValueError as e:
             print(f'{e}')

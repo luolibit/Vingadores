@@ -27,10 +27,15 @@ class Database:
     def disconnect(self):
         self.connection.close()
         print('Conexão com o banco de dados encerrada com sucesso')
- 
-# Database().connect()
 
-db = Database()
-db.connect()
-db.disconnect()
+    def execute_query(self, query, values = None):
+        try:
+            self.cursor.execute(query, values)
+            self.connection.commit()
+            print('Query executada com sucesso')
+            return self.cursor
+        except Error as e:
+            print(f'Erro: {e}')
+            return None
+ 
  
