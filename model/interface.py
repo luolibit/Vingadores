@@ -1,5 +1,6 @@
 import os
 from model.vingadores import Vingadores
+from model.database import Database
 
 class Interface:
 
