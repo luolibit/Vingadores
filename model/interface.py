@@ -4,6 +4,10 @@ from model.database import Database
 
 class Interface:
 
+    def __init__(self):
+        Vingadores.carregar_herois()
+        self.apresentar_menu_principal()
+
     @staticmethod
     def imprimir_titulo_app():
         print(''' 

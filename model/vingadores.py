@@ -1,4 +1,5 @@
 import os
+from model.database import Database
 
 
 class Vingadores:
@@ -6,7 +7,7 @@ class Vingadores:
     lista_de_vingadores = []
     categorias_permitidas = ["Humano", "Meta-Humano", "Androide", "Deidade", "Alienígena"]
 
-    def __init__(self, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca):
+    def __init__(self, id, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca):
         if categoria not in Vingadores.categorias_permitidas:
             raise ValueError(f"Categoria inválida, as categorias permitidas são: {', '.join(Vingadores.categorias_permitidas)}")
         
@@ -16,7 +17,7 @@ class Vingadores:
         if Vingadores.buscar_vingador(nome_heroi = nome_heroi):
             raise ValueError(f'{nome_heroi} já está cadastrado')
 
-
+        self.id = id
         self.nome_heroi = nome_heroi
         self.nome_real = nome_real
         self.categoria = categoria
@@ -100,4 +101,19 @@ class Vingadores:
 
         self.chip = True
         print(f'{self.nome_heroi} teve o chip GPS aplicado com sucesso!')
-        
+
+    @staticmethod
+    def carregar_herois():
+            try:
+                db = Database()
+                db.connect()
+
+                query = 'SELECT nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca * FROM heroi'
+                herois = db.select(query)
+                for heroi in herois:
+                    Vingadores(heroi[1], heroi[2], heroi[3], heroi[4], heroi[5], heroi[6], heroi[7])
+            except Exception as e:
+                print(f'Erro: {e}')
+            finally:
+                db.disconnect()
+                
