@@ -77,7 +77,6 @@ class Interface:
             fraquezas = input('Fraquezas: ').split(', ')
             nivel_forca = int(input('Nível de Força (0 a 10000): '))
         
-            Vingadores(nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
 
             try:
                 db = Database()
@@ -86,7 +85,9 @@ class Interface:
                 query = "INSERT INTO heroi (nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca) VALUES (%s, %s, %s, %s, %s, %s, %s)"
                 values = (nome_heroi, nome_real, categoria, ','.join(poderes), poder_principal, ','.join(fraquezas), nivel_forca)
 
-                db.execute_query(query, values)
+                cursor = db.execute_query(query, values)
+
+                Vingadores(cursor.lastrowid, nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca)
             except Exception as e:
                 print(f"Erro ao salvar vingador no banco de dados: {e}")
             finally:
