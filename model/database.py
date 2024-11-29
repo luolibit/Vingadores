@@ -38,4 +38,10 @@ class Database:
             print(f'Erro: {e}')
             return None
  
- 
+    def select(self, query):
+        try:
+            self.cursor.execute(query)
+            return self.cursor.fetchall()
+        except Error as e:
+            print(f'Erro: {e}')
+            return None

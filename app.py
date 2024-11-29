@@ -1,11 +1,16 @@
+from model import vingadores
+from model.database import Database
 from model.vingadores import Vingadores
 from model.interface import Interface as I
 
 def main():
-    # Vingadores("Thor", "Thor Odinson", "Deidade", ["Raio", "Martelo do Thor"], "Martelo do Thor", ["Ego", "Maldições"], 10000)
-    # Vingadores("Homem Aranha", "Peter Parker", "Meta-Humano", ["Soltar teia", "Aderência"], "Soltar teia", ["Responsabilidade, Emoções"], 5000)
-    # Vingadores("Homem de Ferro", "Tony Stark", "Humano", ["Inteligência", "Aramdura"], "Armadura", ["Dependência da armadura"], 8500)
-    # Vingadores("Hulk", "Bruce Banner", "Meta-Humano", ["Superforça", "Regeneração"], "Superforça", ["Fúria incontrolável", "Emocional"], 10000)
+    db = Database()
+    db.connect()
+
+    query = 'SELECT * FROM heroi'
+    herois = db.select(query)
+    for heroi in herois:
+        Vingadores(heroi[1], heroi[2], heroi[3], heroi[4], heroi[5], heroi[6], heroi[7])
 
     I.apresentar_menu_principal()
 
