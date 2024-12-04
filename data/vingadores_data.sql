@@ -232,6 +232,33 @@ LOCK TABLES `mandado_prisao` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `registro_acoes`
+--
+
+DROP TABLE IF EXISTS `registro_acoes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `registro_acoes` (
+  `id_registro_acoes` int NOT NULL AUTO_INCREMENT,
+  `id_heroi` int NOT NULL,
+  `id_convocacao` int NOT NULL,
+  `id_tornozeleira` int NOT NULL,
+  `id_chip_gps` int NOT NULL,
+  `id_mandado_prisao` int NOT NULL,
+  PRIMARY KEY (`id_registro_acoes`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `registro_acoes`
+--
+
+LOCK TABLES `registro_acoes` WRITE;
+/*!40000 ALTER TABLE `registro_acoes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `registro_acoes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tornozeleira`
 --
 
@@ -275,4 +302,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-04 13:49:10
+-- Dump completed on 2024-12-04 16:34:55
