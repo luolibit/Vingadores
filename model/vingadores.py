@@ -84,7 +84,7 @@ class Vingadores:
         try:
             db = Database()
             db.connect()
-            query = f'UPDATE heroi SER {campo} = %s WHERE id = %s'
+            query = f'UPDATE heroi SET {campo} = %s WHERE id = %s'
             db.execute_query(query, (valor, self.id))
         except Exception as e:
             print(f'Erro ao atualizar o banco de dados: {e}')
