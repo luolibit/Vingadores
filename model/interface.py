@@ -71,12 +71,24 @@ class Interface:
                 return
             
             nome_real = input('Nome Real: ')
+
             categoria = input('Categoria (Humano, Meta-Humano, Androide, Deidade, Alienígena): ')
+            if categoria not in Vingadores.categorias_permitidas:
+                print('Categoria inválida! EScolha uma das opções permitidas.')
+                return
+
+
+            try:
+                nivel_forca=int(input('Nível de Força (0 a 10000): '))
+                if not (0 <= nivel_forca <= 10000):
+                    raise ValueError('O nível de força deve estar entre 0 e 10000.')
+            except ValueError as e:
+                print(f'Erro: {e}')
+                return
+
             poderes = input('Poderes (separados por vírgula): ').split(', ') 
             poder_principal = input('Poder Principal: ')
             fraquezas = input('Fraquezas: ').split(', ')
-            nivel_forca = int(input('Nível de Força (0 a 10000): '))
-        
 
             try:
                 db = Database()
@@ -93,7 +105,7 @@ class Interface:
             finally:
                 db.disconnect()
 
-            print(f'{nome_heroi} foi cadstrado!')
+            print(f'{nome_heroi} foi cadstrado com sucesso!')
         except ValueError as e:
             print(f'{e}')
 
@@ -109,7 +121,7 @@ class Interface:
             print('Vingador não encontrado')
 
     @staticmethod
-    def aplicar_tornozeleira():
+    def aplicar_tornozeleira(self):
         os.system('cls')
         Interface.imprimir_titulo_app()
         nome = input('Digite o nome do herói, ou seu nome real, para aplicar a tornozeleira: ')

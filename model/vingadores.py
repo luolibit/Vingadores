@@ -16,6 +16,11 @@ class Vingadores:
         
         if Vingadores.buscar_vingador(nome_heroi = nome_heroi):
             raise ValueError(f'{nome_heroi} já está cadastrado')
+        
+        if not all(isinstance(poder, str) for poder in poderes):
+            raise ValueError('Todos os poderes devem ser strings.')
+        if not all(isinstance(fraqueza, str) for fraqueza in fraquezas):
+            raise ValueError('Todas as fraquezas devem ser strings.')
 
         self.id = id
         self.nome_heroi = nome_heroi
@@ -72,7 +77,19 @@ class Vingadores:
             print(f'{self.nome_heroi} já foi convocado')
         else:
             self.convocado = True
+            self.atualizar_banco('convocado', 1)
             print(f'{self.nome_heroi} foi convocado!')
+
+    def atualizar_banco(self, campo, valor):
+        try:
+            db = Database()
+            db.connect()
+            query = f'UPDATE heroi SER {campo} = %s WHERE id = %s'
+            db.execute_query(query, (valor, self.id))
+        except Exception as e:
+            print(f'Erro ao atualizar o banco de dados: {e}')
+        finally:
+            db.disconnect()
     
     def aplicar_tornozeleira(self):
         if not self.convocado:
@@ -90,6 +107,17 @@ class Vingadores:
         self.tornozeleira = True
         print(f"{self.nome_heroi} teve a tornozeleira aplicada com sucesso!")
 
+        try:
+            db = Database()
+            db.connect()
+            query = 'UPDATE heroi SET tornozeleira = %s WHERE id = %s'
+            db.execute_query(query, (self.tornozeleira, self.id))
+            print('Estado da tornozeleira atualizado no banco de dados.')
+        except Exception as e:
+            print(f'Erro ao atualizar a tornozeleira: {e}')
+        finally:
+            db.disconnect()
+
     def aplicar_chip(self):
         if not self.tornozeleira:
             print('O chip GPS só pode ser aplicado após a tornozeleira!')
@@ -102,6 +130,17 @@ class Vingadores:
         self.chip = True
         print(f'{self.nome_heroi} teve o chip GPS aplicado com sucesso!')
 
+        try:
+            db = Database()
+            db.connect()
+            query ='UPDATE heroi SET chip = %s WHERE id = %s'
+            db.execute_query(query, (self.chip, self.id))
+            print('Estado do Chip GPS foi atualizado no banco de dados.')
+        except Exception as e:
+            print(f'Erro ao atualizar o chip GPS no banco de dados: {e}')
+        finally:
+            db.disconnect()
+
     @staticmethod
     def carregar_herois():
             try:
@@ -111,7 +150,11 @@ class Vingadores:
                 query = 'SELECT nome_heroi, nome_real, categoria, poderes, poder_principal, fraquezas, nivel_forca * FROM heroi'
                 herois = db.select(query)
                 for heroi in herois:
-                    Vingadores(heroi[1], heroi[2], heroi[3], heroi[4], heroi[5], heroi[6], heroi[7])
+                    poderes = heroi['poderes'].split(',') if heroi['poderes'] else []
+                    fraquezas = heroi['fraquezas'].split(',') if heroi['fraquezas'] else []
+                    Vingadores(
+                        heroi['id'], heroi['nome_heroi'], heroi['nome_real'], heroi['categoria'] , poderes, heroi['poder_principal'], fraquezas, heroi['nivel_forca']
+                        )
             except Exception as e:
                 print(f'Erro: {e}')
             finally:
