@@ -11,6 +11,7 @@ class Database:
         self.password = getenv('BD_PSWD')
         self.database = getenv('BD_DATABASE')
         self.connection = None
+        self.cursor = None
  
     def connect(self):
         if self.connection and self.connection.is_connected():
